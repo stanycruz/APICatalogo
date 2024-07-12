@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using APICatalogo.Context;
 using APICatalogo.Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace APICatalogo.Controllers
@@ -56,6 +57,20 @@ namespace APICatalogo.Controllers
                 new { id = produto.ProdutoId },
                 produto
             );
+        }
+
+        [HttpPut("{id:int}")]
+        public ActionResult Put(int id, Produto produto)
+        {
+            if (id != produto.ProdutoId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(produto).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return Ok(produto);
         }
     }
 }
