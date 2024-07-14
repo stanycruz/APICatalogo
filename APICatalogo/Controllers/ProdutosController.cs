@@ -20,15 +20,15 @@ namespace APICatalogo.Controllers
         // [HttpGet("teste")]
         // [HttpGet("/primeiro")]
         [HttpGet("{valor:alpha:length(5)}")]
-        public ActionResult<Produto> Get2()
+        public async Task<ActionResult<Produto>> Get2Async()
         {
-            return _context.Produtos.FirstOrDefault();
+            return await _context.Produtos.FirstOrDefaultAsync();
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Produto>> Get()
+        public async Task<ActionResult<IEnumerable<Produto>>> GetAsync()
         {
-            var produtos = _context.Produtos.AsNoTracking().ToList();
+            var produtos = await _context.Produtos.AsNoTracking().ToListAsync();
             if (produtos is null)
             {
                 return NotFound();
@@ -37,9 +37,9 @@ namespace APICatalogo.Controllers
         }
 
         [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
-        public ActionResult<Produto> Get(int id)
+        public async Task<ActionResult<Produto>> GetAsync(int id)
         {
-            var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+            var produto = await _context.Produtos.FirstOrDefaultAsync(p => p.ProdutoId == id);
             if (produto is null)
             {
                 return NotFound("Produto não encontrado...");
