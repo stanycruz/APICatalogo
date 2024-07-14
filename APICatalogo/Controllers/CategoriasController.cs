@@ -7,11 +7,11 @@ namespace APICatalogo.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CategoriaController : ControllerBase
+    public class CategoriasController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public CategoriaController(AppDbContext context)
+        public CategoriasController(AppDbContext context)
         {
             _context = context;
         }
