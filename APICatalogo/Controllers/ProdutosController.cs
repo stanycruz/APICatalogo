@@ -16,17 +16,13 @@ namespace APICatalogo.Controllers
             _context = context;
         }
 
-        [HttpGet("primeiro")]
-        [HttpGet("teste")]
-        [HttpGet("/primeiro")]
-        public ActionResult<Produto> GetPrimeiro()
+        // [HttpGet("primeiro")]
+        // [HttpGet("teste")]
+        // [HttpGet("/primeiro")]
+        [HttpGet("{valor:alpha:length(5)}")]
+        public ActionResult<Produto> Get2()
         {
-            var produto = _context.Produtos.FirstOrDefault();
-            if (produto is null)
-            {
-                return NotFound();
-            }
-            return produto;
+            return _context.Produtos.FirstOrDefault();
         }
 
         [HttpGet]
@@ -40,7 +36,7 @@ namespace APICatalogo.Controllers
             return produtos;
         }
 
-        [HttpGet("{id:int}", Name = "ObterProduto")]
+        [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
         public ActionResult<Produto> Get(int id)
         {
             var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
@@ -67,7 +63,7 @@ namespace APICatalogo.Controllers
             );
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:int:min(1)}")]
         public ActionResult Put(int id, Produto produto)
         {
             if (id != produto.ProdutoId)
@@ -81,7 +77,7 @@ namespace APICatalogo.Controllers
             return Ok(produto);
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{id:int:min(1)}")]
         public ActionResult Delete(int id)
         {
             var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
