@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace APICatalogo.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProdutosController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -17,6 +17,8 @@ namespace APICatalogo.Controllers
         }
 
         [HttpGet("primeiro")]
+        [HttpGet("teste")]
+        [HttpGet("/primeiro")]
         public ActionResult<Produto> GetPrimeiro()
         {
             var produto = _context.Produtos.FirstOrDefault();
